@@ -128,12 +128,13 @@
   <div class="download-panel" id="firmware-panel" role="tabpanel" aria-labelledby="firmware-tab" tabindex="0" hidden>
     <div class="firmware-release-wrap">
       <h2><i class="fa-solid fa-microchip" aria-hidden="true"></i> Firmware Releases</h2>
-      <p class="firmware-release-intro">Check the device model and firmware version before downloading an update. Release notes show what changed in each version.</p>
+      <p class="firmware-release-intro">Check the device model, firmware type (WiFi, System, or Asset/Web), and version before downloading an update. Release notes show what changed in each version.</p>
       <div class="firmware-table-wrap">
         <table class="firmware-table">
           <thead>
             <tr>
               <th scope="col">Device model</th>
+              <th scope="col">Firmware type</th>
               <th scope="col">Firmware version</th>
               <th scope="col">Release date</th>
               <th scope="col">Changes</th>
@@ -141,12 +142,12 @@
             </tr>
           </thead>
           <tbody id="firmwareReleaseRows">
-            <tr><td class="firmware-empty" colspan="5">Loading firmware releases…</td></tr>
+            <tr><td class="firmware-empty" colspan="6">Loading firmware releases…</td></tr>
           </tbody>
         </table>
       </div>
       <div class="firmware-instructions">
-        <strong>To install:</strong> open your device's web page, choose <strong>Firmware</strong>, and select the package for that exact model. Keep the device powered until <strong>Successfully Updated</strong> appears.
+        <strong>To install:</strong> open your device's web page, choose <strong>Firmware</strong>, and select the package for the exact model and firmware type. Keep the device powered until <strong>Successfully Updated</strong> appears.
         <br><a href="support.html" class="firmware-help-link"><i class="fa-solid fa-headset" aria-hidden="true"></i> Need help with an update?</a>
       </div>
     </div>
@@ -198,7 +199,7 @@
     const row = document.createElement('tr');
     const cell = document.createElement('td');
     cell.className = 'firmware-empty';
-    cell.colSpan = 5;
+    cell.colSpan = 6;
     cell.textContent = message;
     row.appendChild(cell);
     rows.replaceChildren(row);
@@ -216,7 +217,7 @@
       rows.replaceChildren();
       releases.slice().sort((a, b) => String(b.releaseDate).localeCompare(String(a.releaseDate))).forEach((release) => {
         const row = document.createElement('tr');
-        [release.model, release.version, release.releaseDate].forEach((value) => {
+        [release.model, release.firmwareType || '—', release.version, release.releaseDate].forEach((value) => {
           const cell = document.createElement('td');
           cell.textContent = value || '—';
           row.appendChild(cell);
