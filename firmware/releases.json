@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "model":  "Wi-Fi100",
+        "firmwareType":  "WiFi",
+        "version":  "v1.0.0",
+        "releaseDate":  "2026-11-24",
+        "changes":  "Release",
+        "file":  "releases/wi-fi100-wifi-v1.0.0.bin"
+    }
+]
