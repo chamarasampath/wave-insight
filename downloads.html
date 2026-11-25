@@ -28,6 +28,22 @@
 .firmware-card { max-width:760px; margin:0 auto; }
 .firmware-card ul { color:#cbd5e1; line-height:1.9; text-align:left; padding-left:22px; margin:0 0 24px; }
 .firmware-card .download-btn { margin-top:0; }
+.firmware-release-wrap { max-width:1180px; margin:0 auto; }
+.firmware-release-wrap > h2 { color:#00bfff; text-align:center; font-size:28px; margin:0 0 10px; }
+.firmware-release-intro { color:#cbd5e1; line-height:1.7; text-align:center; max-width:820px; margin:0 auto 24px; }
+.firmware-table-wrap { overflow-x:auto; border:1px solid #26354b; border-radius:16px; background:#101827; }
+.firmware-table { width:100%; min-width:780px; border-collapse:collapse; text-align:left; }
+.firmware-table th,.firmware-table td { padding:16px 18px; border-bottom:1px solid #26354b; vertical-align:top; }
+.firmware-table th { color:#67e8f9; background:#111f32; font-size:14px; text-transform:uppercase; letter-spacing:.04em; }
+.firmware-table td { color:#dbe5f0; line-height:1.6; }
+.firmware-table tbody tr:last-child td { border-bottom:0; }
+.firmware-table .release-changes { min-width:280px; white-space:pre-line; }
+.firmware-download { display:inline-block; white-space:nowrap; background:#009cff; color:#fff; padding:9px 15px; border-radius:24px; text-decoration:none; }
+.firmware-download:hover { box-shadow:0 0 16px rgba(0,156,255,.55); }
+.firmware-empty { text-align:center; color:#94a3b8 !important; padding:28px !important; }
+.firmware-instructions { max-width:900px; margin:28px auto 0; padding:24px; border:1px solid #26354b; border-radius:16px; background:#101827; color:#cbd5e1; line-height:1.8; }
+.firmware-instructions strong { color:#fff; }
+.firmware-help-link { display:inline-block; margin-top:12px; color:#67e8f9; }
 @media(max-width:900px) {
   .downloads-grid { grid-template-columns:1fr; }
   .download-tablist { gap:10px; }
@@ -43,7 +59,7 @@
 
 <header>
   <div class="logo">
-    <img src="images/logo.png" alt="Wave Insight logo">
+    <img src="images/logo-header.png" alt="Wave Insight">
     <span>Wave Insight</span>
   </div>
   <div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></div>
@@ -110,18 +126,30 @@
   </div>
 
   <div class="download-panel" id="firmware-panel" role="tabpanel" aria-labelledby="firmware-tab" tabindex="0" hidden>
-    <article class="download-card firmware-card">
-      <h2><i class="fa-solid fa-microchip" aria-hidden="true"></i> Firmware Updates</h2>
-      <p>Install the signed update package supplied for your Wave Insight device from its built-in web page.</p>
-      <ul>
-        <li>Open the device web page and choose <strong>Firmware</strong>.</li>
-        <li>Select the update package provided for your device and start the update.</li>
-        <li>Keep the device powered on until <strong>Successfully Updated</strong> appears.</li>
-      </ul>
-      <a href="support.html" class="download-btn">
-        <i class="fa-solid fa-headset" aria-hidden="true"></i> Firmware Help
-      </a>
-    </article>
+    <div class="firmware-release-wrap">
+      <h2><i class="fa-solid fa-microchip" aria-hidden="true"></i> Firmware Releases</h2>
+      <p class="firmware-release-intro">Check the device model and firmware version before downloading an update. Release notes show what changed in each version.</p>
+      <div class="firmware-table-wrap">
+        <table class="firmware-table">
+          <thead>
+            <tr>
+              <th scope="col">Device model</th>
+              <th scope="col">Firmware version</th>
+              <th scope="col">Release date</th>
+              <th scope="col">Changes</th>
+              <th scope="col">Package</th>
+            </tr>
+          </thead>
+          <tbody id="firmwareReleaseRows">
+            <tr><td class="firmware-empty" colspan="5">Loading firmware releases…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="firmware-instructions">
+        <strong>To install:</strong> open your device's web page, choose <strong>Firmware</strong>, and select the package for that exact model. Keep the device powered until <strong>Successfully Updated</strong> appears.
+        <br><a href="support.html" class="firmware-help-link"><i class="fa-solid fa-headset" aria-hidden="true"></i> Need help with an update?</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -161,6 +189,58 @@
       activate(tabs[nextIndex], true);
     });
   });
+})();
+</script>
+<script>
+(() => {
+  const rows = document.getElementById('firmwareReleaseRows');
+  const showMessage = (message) => {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.className = 'firmware-empty';
+    cell.colSpan = 5;
+    cell.textContent = message;
+    row.appendChild(cell);
+    rows.replaceChildren(row);
+  };
+  fetch('firmware/releases.json', { cache: 'no-store' })
+    .then((response) => {
+      if (!response.ok) throw new Error('Firmware list is unavailable.');
+      return response.json();
+    })
+    .then((releases) => {
+      if (!Array.isArray(releases) || releases.length === 0) {
+        showMessage('No firmware packages have been published yet.');
+        return;
+      }
+      rows.replaceChildren();
+      releases.slice().sort((a, b) => String(b.releaseDate).localeCompare(String(a.releaseDate))).forEach((release) => {
+        const row = document.createElement('tr');
+        [release.model, release.version, release.releaseDate].forEach((value) => {
+          const cell = document.createElement('td');
+          cell.textContent = value || '—';
+          row.appendChild(cell);
+        });
+        const changes = document.createElement('td');
+        changes.className = 'release-changes';
+        changes.textContent = release.changes || '—';
+        row.appendChild(changes);
+        const packageCell = document.createElement('td');
+        if (typeof release.file === 'string' && /^releases\/[A-Za-z0-9._-]+\.bin$/i.test(release.file)) {
+          const link = document.createElement('a');
+          link.className = 'firmware-download';
+          link.href = `firmware/${release.file}`;
+          link.download = '';
+          link.textContent = 'Download';
+          packageCell.appendChild(link);
+        } else {
+          packageCell.textContent = 'Contact support';
+        }
+        row.appendChild(packageCell);
+        rows.appendChild(row);
+      });
+    })
+    .catch(() => showMessage('Firmware list could not be loaded. Please try again later.'));
 })();
 </script>
 </body>

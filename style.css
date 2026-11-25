@@ -19,7 +19,7 @@ body{
 
 header{
 
-    height:80px;
+    height:110px;
     width:100%;
 
     display:flex;
@@ -42,7 +42,8 @@ header{
 
     display:flex;
     align-items:center;
-    gap:12px;
+    flex:0 0 320px;
+    width:320px;
 
     font-size:24px;
     font-weight:bold;
@@ -52,9 +53,17 @@ header{
 
 .logo img{
 
-    width:45px;
-    height:45px;
+    display:block;
+    width:320px;
+    max-width:100%;
+    height:auto;
     object-fit:contain;
+
+}
+
+.logo span{
+
+    display:none;
 
 }
 
@@ -94,7 +103,45 @@ nav{
 
     align-items:center;
 
-    gap:35px;
+    gap:16px;
+
+}
+
+@media (min-width:901px) and (max-width:1250px){
+
+    header{
+        padding:0 20px;
+    }
+
+    .logo{
+        flex-basis:230px;
+        width:230px;
+    }
+
+    .logo img{
+        width:230px;
+    }
+
+    nav{
+        gap:10px;
+    }
+
+    nav a{
+        font-size:14px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    .logo{
+        flex-basis:180px;
+        width:180px;
+    }
+
+    .logo img{
+        width:180px;
+    }
 
 }
 
@@ -2183,6 +2230,8 @@ grid-template-columns:1fr;
 
 header{
 
+    height:80px;
+
     display:flex;
 
     justify-content:space-between;
@@ -2193,6 +2242,15 @@ header{
 
     padding:0 20px;
 
+}
+
+.logo{
+    flex:0 0 220px;
+    width:220px;
+}
+
+.logo img{
+    width:220px;
 }
 
 .menu-toggle{
