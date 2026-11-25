@@ -1,11 +1,11 @@
 [
     {
         "model":  "Wi-Fi100",
-        "firmwareType":  "System",
+        "firmwareType":  "Asset (Web)",
         "version":  "v1.0.0",
         "releaseDate":  "2026-11-24",
-        "changes":  "Resease",
-        "file":  "releases/system/wi-fi100/v1.0.0/system.bin"
+        "changes":  "Release",
+        "file":  "releases/asset-web/wi-fi100/v1.0.0/assets.bin"
     },
     {
         "model":  "Wi-Fi100",
@@ -14,5 +14,13 @@
         "releaseDate":  "2026-11-24",
         "changes":  "Release",
         "file":  "releases/wifi/wi-fi100/v1.0.0/wifi.bin"
+    },
+    {
+        "model":  "Wi-Fi100",
+        "firmwareType":  "System",
+        "version":  "v1.0.0",
+        "releaseDate":  "2026-11-24",
+        "changes":  "Resease",
+        "file":  "releases/system/wi-fi100/v1.0.0/system.bin"
     }
 ]
