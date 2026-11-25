@@ -227,11 +227,19 @@
         changes.textContent = release.changes || '—';
         row.appendChild(changes);
         const packageCell = document.createElement('td');
-        if (typeof release.file === 'string' && /^releases\/[A-Za-z0-9._-]+\.bin$/i.test(release.file)) {
+        const fileParts = typeof release.file === 'string' ? release.file.split('/') : [];
+        const validLegacyFile = fileParts.length === 2 && fileParts[0] === 'releases'
+          && fileParts[1].toLowerCase().endsWith('.bin')
+          && !/[\\\u0000-\u001f]/.test(fileParts[1]) && fileParts[1] !== '.' && fileParts[1] !== '..';
+        const validTypedFile = fileParts.length === 5 && fileParts[0] === 'releases'
+          && ['wifi', 'system', 'asset-web'].includes(fileParts[1].toLowerCase())
+          && fileParts.slice(2).every((part) => part && part !== '.' && part !== '..' && !/[\\\u0000-\u001f]/.test(part))
+          && fileParts[4].toLowerCase().endsWith('.bin');
+        if (validLegacyFile || validTypedFile) {
           const link = document.createElement('a');
           link.className = 'firmware-download';
-          link.href = `firmware/${release.file}`;
-          link.download = '';
+          link.href = `firmware/${fileParts.map((part) => encodeURIComponent(part)).join('/')}`;
+          link.download = fileParts[fileParts.length - 1];
           link.textContent = 'Download';
           packageCell.appendChild(link);
         } else {
