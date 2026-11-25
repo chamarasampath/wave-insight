@@ -1,178 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Wave Insight - Downloads</title>
-
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+/* Downloads page tabs and cards */
+.downloads { display:block; padding:48px 8% 88px; }
+.download-tablist { display:flex; justify-content:center; gap:14px; margin:0 auto 36px; }
+.download-tab {
+  border:1px solid #26354b; border-radius:999px; padding:13px 25px;
+  background:#101827; color:#cbd5e1; font:inherit; font-weight:600; font-size:16px; cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,box-shadow .2s;
+}
+.download-tab:hover,.download-tab[aria-selected="true"] {
+  color:#fff; background:#075985; border-color:#00bfff; box-shadow:0 0 18px rgba(0,191,255,.18);
+}
+.download-tab:focus-visible { outline:3px solid #67e8f9; outline-offset:3px; }
+.download-panel[hidden] { display:none; }
+.downloads-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+.download-card { display:flex; flex-direction:column; align-items:center; min-height:280px; padding:32px 26px; }
+.download-card h2 { font-size:23px; }
+.download-card p { flex:1; }
+.download-card .download-btn { margin-top:12px; }
+.firmware-card { max-width:760px; margin:0 auto; }
+.firmware-card ul { color:#cbd5e1; line-height:1.9; text-align:left; padding-left:22px; margin:0 0 24px; }
+.firmware-card .download-btn { margin-top:0; }
+@media(max-width:900px) {
+  .downloads-grid { grid-template-columns:1fr; }
+  .download-tablist { gap:10px; }
+  .download-tab { padding:12px 20px; }
+}
+@media(max-width:480px) {
+  .download-tablist { width:100%; }
+  .download-tab { flex:1; padding:11px 10px; font-size:14px; }
+}
+</style>
 </head>
-
-
 <body>
 
-
 <header>
-
-<div class="logo">
-
-<img src="images/logo.png">
-
-<span>Wave Insight</span>
-
-</div>
-
-<div class="menu-toggle" id="menuToggle">
-    <i class="fa-solid fa-bars"></i>
-</div>
-
-<div class="menu-overlay" id="menuOverlay"></div>
-
-<nav id="mobileMenu">
-
-<div class="close-menu" id="closeMenu">
-    <i class="fa-solid fa-xmark"></i>
-</div>
-
-<a href="index.html">Home</a>
-
-<a href="products.html">Products</a>
-
-<a href="technology.html">Technology</a>
-
-<a href="applications.html">Applications</a>
-
-<a href="downloads.html">Downloads</a>
-
-<a href="support.html">Support</a>
-
-<a href="contact.html">Contact</a>
-
-</nav>
-
-
-<a href="https://wa.me/94776521833?text=Hello,%20I%20would%20like%20to%20purchase%20the%20Wave%20Insight%20AC%20Waveform%20Analyzer."
-class="buy-btn"
-target="_blank">
-
-<i class="fa-brands fa-whatsapp"></i>
-<span>Buy Now</span>
-
-</a>
-
-
-
+  <div class="logo">
+    <img src="images/logo.png" alt="Wave Insight logo">
+    <span>Wave Insight</span>
+  </div>
+  <div class="menu-toggle" id="menuToggle"><i class="fa-solid fa-bars"></i></div>
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <nav id="mobileMenu">
+    <div class="close-menu" id="closeMenu"><i class="fa-solid fa-xmark"></i></div>
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="technology.html">Technology</a>
+    <a href="applications.html">Applications</a>
+    <a href="downloads.html" aria-current="page">Downloads</a>
+    <a href="support.html">Support</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <a href="https://wa.me/94776521833?text=Hello,%20I%20would%20like%20to%20purchase%20the%20Wave%20Insight%20AC%20Waveform%20Analyzer."
+     class="buy-btn" target="_blank" rel="noopener noreferrer">
+    <i class="fa-brands fa-whatsapp"></i><span>Buy Now</span>
+  </a>
 </header>
 
-
-
-
-
 <section class="download-hero">
-
-
-<h1>
-Downloads
-</h1>
-
-
-<p>
-
-Download the official Wave Insight User Manual
-for operating instructions, safety information
-and product guidance.
-
-</p>
-
-
+  <h1>Downloads</h1>
+  <p>Find user manuals and firmware update information for Wave Insight devices.</p>
 </section>
-
-
-
-
-
 
 <section class="downloads">
+  <div class="download-tablist" role="tablist" aria-label="Download categories">
+    <button class="download-tab" id="manuals-tab" type="button" role="tab"
+            aria-selected="true" aria-controls="manuals-panel" tabindex="0">
+      <i class="fa-solid fa-book-open" aria-hidden="true"></i> User Manual
+    </button>
+    <button class="download-tab" id="firmware-tab" type="button" role="tab"
+            aria-selected="false" aria-controls="firmware-panel" tabindex="-1">
+      <i class="fa-solid fa-microchip" aria-hidden="true"></i> Firmware
+    </button>
+  </div>
 
+  <div class="download-panel" id="manuals-panel" role="tabpanel" aria-labelledby="manuals-tab" tabindex="0">
+    <div class="downloads-grid">
+      <article class="download-card">
+        <h2><i class="fa-solid fa-book" aria-hidden="true"></i> Wi-100 User Manual</h2>
+        <p>Operating instructions and product guidance for the Wave Insight Wi-100.</p>
+        <a href="documents/Wave_Insight_User_Manual.pdf" class="download-btn" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Download PDF
+        </a>
+      </article>
 
+      <article class="download-card">
+        <h2><i class="fa-solid fa-book" aria-hidden="true"></i> Wi-Fi100 User Manual (English)</h2>
+        <p>Complete English guide for setup, operation, settings, alerts and firmware updates.</p>
+        <a href="documents/Wave_Insight_WiFi100_User_Manual_EN.pdf" class="download-btn" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Download English PDF
+        </a>
+      </article>
 
-<div class="download-card">
+      <article class="download-card">
+        <h2><i class="fa-solid fa-book" aria-hidden="true"></i> Wi-Fi100 User Manual (සිංහල / English)</h2>
+        <p>සිංහල පැහැදිලි කිරීම් සහ හුරුපුරුදු English technical terms සමඟ සකස් කළ මාර්ගෝපදේශය.</p>
+        <a href="documents/Wave_Insight_WiFi100_User_Manual_SI_EN.pdf" class="download-btn" download>
+          <i class="fa-solid fa-download" aria-hidden="true"></i> Download Sinhala / English PDF
+        </a>
+      </article>
+    </div>
+  </div>
 
-
-<h2>
-📘 User Manual  Model: Wi-100
-
-</h2>
-
-
-<p>
-
-Complete operating guide for
-Wave Insight AC Waveform Analyzer.
-
-</p>
-
-
-<a href="documents/Wave_Insight_User_Manual.pdf" 
-class="download-btn"
-download>
-
-Download User Manual
-
-</a>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <div class="download-panel" id="firmware-panel" role="tabpanel" aria-labelledby="firmware-tab" tabindex="0" hidden>
+    <article class="download-card firmware-card">
+      <h2><i class="fa-solid fa-microchip" aria-hidden="true"></i> Firmware Updates</h2>
+      <p>Install the signed update package supplied for your Wave Insight device from its built-in web page.</p>
+      <ul>
+        <li>Open the device web page and choose <strong>Firmware</strong>.</li>
+        <li>Select the update package provided for your device and start the update.</li>
+        <li>Keep the device powered on until <strong>Successfully Updated</strong> appears.</li>
+      </ul>
+      <a href="support.html" class="download-btn">
+        <i class="fa-solid fa-headset" aria-hidden="true"></i> Firmware Help
+      </a>
+    </article>
+  </div>
 </section>
 
-
-
-
-
 <footer>
-
-
-<h2>
-Wave Insight
-</h2>
-
-
-<p>
-Designed by Chamara Electronic Technics
-</p>
-
-
-<p>© 2026 Chamara Electronic Technics. All rights reserved.</p>
-<p class="footer-links">
-  <a href="https://chamarasampath.github.io/wave-insight/">Wave Insight website</a>
-  <a href="https://web.facebook.com/WaveInsightLK/" target="_blank" rel="noopener noreferrer">Facebook</a>
-</p>
-
-
+  <h2>Wave Insight</h2>
+  <p>Designed by Chamara Electronic Technics</p>
+  <p>© 2026 Chamara Electronic Technics. All rights reserved.</p>
+  <p class="footer-links">
+    <a href="https://chamarasampath.github.io/wave-insight/">Wave Insight website</a>
+    <a href="https://web.facebook.com/WaveInsightLK/" target="_blank" rel="noopener noreferrer">Facebook</a>
+  </p>
 </footer>
 
 <script src="script.js"></script>
-
+<script>
+(() => {
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const activate = (selectedTab, moveFocus = false) => {
+    tabs.forEach((tab) => {
+      const selected = tab === selectedTab;
+      tab.setAttribute('aria-selected', String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+    });
+    if (moveFocus) selectedTab.focus();
+  };
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', (event) => {
+      let nextIndex = index;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = tabs.length - 1;
+      else return;
+      event.preventDefault();
+      activate(tabs[nextIndex], true);
+    });
+  });
+})();
+</script>
 </body>
-
 </html>
