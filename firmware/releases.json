@@ -1,6 +1,14 @@
 [
     {
         "model":  "Wi-Fi100",
+        "firmwareType":  "System",
+        "version":  "v1.0.0",
+        "releaseDate":  "2026-11-24",
+        "changes":  "Resease",
+        "file":  "releases/system/wi-fi100/v1.0.0/system.bin"
+    },
+    {
+        "model":  "Wi-Fi100",
         "firmwareType":  "WiFi",
         "version":  "v1.0.0",
         "releaseDate":  "2026-11-24",
