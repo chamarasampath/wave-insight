@@ -317,6 +317,12 @@ button:hover{
 
 }
 
+.legacy-features{
+
+    background:#080f1f;
+
+}
+
 
 .features h1{
 
@@ -1010,6 +1016,38 @@ stroke-dashoffset:0;
 
 }
 
+.tech-section-heading{
+
+    grid-column:1 / -1;
+
+    margin:0 0 4px;
+
+    color:#00bfff;
+
+    font-size:36px;
+
+    text-align:center;
+
+}
+
+.tech-section-intro{
+
+    grid-column:1 / -1;
+
+    max-width:820px;
+
+    margin:-8px auto 12px;
+
+    color:#cbd5e1;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+    text-align:center;
+
+}
+
 
 
 
@@ -1156,6 +1194,12 @@ stroke-dashoffset:0;
 .tech-hero h1{
 
     font-size:40px;
+
+}
+
+.tech-section-heading{
+
+    font-size:30px;
 
 }
 
